@@ -165,6 +165,69 @@
         .multiplier-card {
             background: linear-gradient(135deg, #FFD93D, #FF9800);
         }
+
+        .teaching-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .teaching-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teaching-section p {
+            line-height: 1.6;
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .tip h4 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tip p {
+            color: #666;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e9ecef;
+        }
         
         @media (max-width: 768px) {
             .content {
@@ -177,6 +240,10 @@
             
             .chart-container {
                 height: 400px;
+            }
+
+            .tips {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -227,7 +294,7 @@
                 <div class="control-group">
                     <label for="timeYears">Time Period (Years)</label>
                     <div class="slider-container">
-                        <input type="range" id="timeYears" class="slider" min="1" max="40" value="20" step="1">
+                        <input type="range" id="timeYears" class="slider" min="1" max="60" value="20" step="1">
                     </div>
                     <div class="value-display" id="timeDisplay">20 years</div>
                 </div>
@@ -262,6 +329,43 @@
                     <small>How much your money grew</small>
                 </div>
             </div>
+
+            <div class="teaching-section">
+                <h3>🎓 Understanding Your Results</h3>
+                <p id="explanation">Compound interest is working in your favor! Your money grows not just from your contributions, but from earning returns on your previous returns - creating a powerful snowball effect over time.</p>
+                <p><strong>The Magic of Compound Interest:</strong> Albert Einstein reportedly called compound interest "the eighth wonder of the world." When you earn interest on both your original investment AND on previously earned interest, your wealth accelerates exponentially rather than growing in a straight line.</p>
+                
+                <div class="tips">
+                    <div class="tip">
+                        <h4>⏰ Start Early</h4>
+                        <p>Time is your greatest ally in building wealth. Starting to save even $50/month at age 25 can result in significantly more money than starting with $200/month at age 35. The earlier you start, the more time compound interest has to work its magic.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>🔄 Be Consistent</h4>
+                        <p>Regular, consistent contributions matter more than the amount. Automating your savings ensures you're always feeding the compound interest machine, even when markets are volatile or life gets busy.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>📈 Higher Returns Matter</h4>
+                        <p>Even small increases in your return rate can have dramatic effects over long periods. A 2% difference in annual returns can mean hundreds of thousands more in your final balance over 30-40 years.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>💎 Stay Patient</h4>
+                        <p>The most dramatic growth happens in the later years. Don't get discouraged if progress seems slow at first - compound interest accelerates over time, and the final 10 years often produce more growth than the first 20!</p>
+                    </div>
+                    <div class="tip">
+                        <h4>🎯 Set Clear Goals</h4>
+                        <p>Having specific financial goals makes it easier to stay motivated and make smart decisions. Whether it's retirement, a home down payment, or financial independence, clear targets help guide your savings strategy.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>🚫 Avoid Early Withdrawals</h4>
+                        <p>Breaking the compound interest cycle by withdrawing money early can cost you dearly. Try to keep your long-term savings separate from emergency funds to avoid the temptation to withdraw during tough times.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 Dale Hopkinson. All Rights Reserved
         </div>
     </div>
 
@@ -380,6 +484,11 @@
             document.getElementById('interestEarned').textContent = '$' + interestEarned.toLocaleString();
             document.getElementById('finalBalance').textContent = '$' + finalBalance.toLocaleString();
             document.getElementById('multiplier').textContent = multiplier + 'x';
+            
+            // Update explanation with specific results
+            const growthPercentage = ((interestEarned / totalContributions) * 100).toFixed(0);
+            const explanation = `Over ${years} years, your $${totalContributions.toLocaleString()} in contributions will grow to $${finalBalance.toLocaleString()}. That's $${interestEarned.toLocaleString()} in interest earned - a ${growthPercentage}% increase from compound growth alone! Your money multiplied by ${multiplier}, showing the incredible power of patience and consistent saving.`;
+            document.getElementById('explanation').textContent = explanation;
             
             // Add highlight animation to interest earned if it's significant
             const interestCard = document.querySelector('.interest-card');
